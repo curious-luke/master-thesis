@@ -1,0 +1,113 @@
+{% extends "classification/base.html" %}
+
+{% block content %}
+
+    <!-- Header -->
+    <div class="page-header" id="banner">
+      <div class="row">
+        <div class="col-lg-12">
+          <h1>Hate Speech Classification</h1>
+          <p class="lead">This page returns a Hate-Speech-Predition from a neural network (LSTM) for any given text. Below the text input card and the classification card the prototype ranks cards with similar Text from the its trainig dataset HASOC (2019) with their respective Cosine-Similarity to the input text.</p>
+        </div>
+        <div class="col-lg-4 col-md-5 col-sm-6">
+          <div class="sponsor">
+            <script async src="https://cdn.carbonads.com/carbon.js?serve=CKYIE23N&placement=bootswatchcom" id="_carbonads_js"></script>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- End of Header -->
+
+    <!-- Classification -->
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="card bg-light mb-3">
+
+            <form method="POST" name="main_input">
+            {% csrf_token %}
+
+            <div class="card-header">
+              <div class="row">
+                <div class="col-lg-8">
+                  <div class="text-left">
+                    <h3>Text Input</h3>
+                  </div>
+                </div>
+                <div class="col-lg-4">
+                  <div class="text-right">
+                    <div class="form-group" method="POST">
+                      <select class="form-control" id="text_language" name="text_language">
+                        <option value="True">English</option>
+                        <option value="False">German</option>
+                      </select>
+                    </div>
+                    <small id="fileHelp" class="form-text text-muted">Text language</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <fieldset>
+                <div class="form-group">
+                  <textarea class="form-control" id="exampleTextarea" rows="10" placeholder="Enter a text for Hate-Speech-Classification." type="text" name="tweet_text" required></textarea>
+                </div>
+              </fieldset>
+                <div class="col-lg-12">
+                    <input class="btn btn-primary btn-lg btn-block" type="submit" value='Classify'>
+                </div>
+            </div>
+
+          </form>
+
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="card text-white bg-dark mb-3">
+            <div class="card-header">Classification</div>
+            <div class="card-body">
+              <h6 class="card-title">Text Input: </h6>
+              <h5 class="card-title">{{input_text}}</h5>
+              <hr class="my-4">
+              <h6 class="card-title">Prediction: </h6>
+              <h4 class="card-title">{{pred}}</h4>
+              <hr class="my-4">
+              <h6 class="card-title">Prediction-Score: </h6>
+              <h4 class="card-title">{{prob}} %</h4>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- End of Classification -->
+
+      <!-- Similarity -->
+    <div>
+      <p></p>
+      <h3>Most similar texts from the training dataset</h3>
+      <p> </p>
+    </div>
+
+    <div class="row">
+      {% for item in sim_tweets %}
+      <div class="col-lg-4">
+        <div class="card border-secondary mb-3" style="max-width: 20rem;">
+          <div class="card-header">{{item.tweet_id}}</div>
+          <div class="card-body">
+            <p class="card-text">{{item.text}}</p>
+            <hr class="my-4">
+            <h6 class="card-title">Cosine-Similarity: </h6>
+            <h4 class="card-title">{{item.cos_sim}} %</h4>
+            <hr class="my-4">
+            <h6 class="card-title">Prediction-Score: </h6>
+            <h4 class="card-title">{{item.pred_proba}} %</h4>
+            <span class="badge badge-primary">{{item.pred_label}}</span>
+            <span class="badge badge-light">{{item.given_label}}</span>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+
+    <!-- End of Similarity -->
+
+{% endblock content %}

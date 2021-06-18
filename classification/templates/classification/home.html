@@ -1,0 +1,151 @@
+{% extends "classification/base.html" %}
+
+{% block content %}
+
+    <!-- Header -->
+    <div class="page-header" id="banner">
+      <div class="row">
+        <div class="col-lg-12">
+          <h1>Welcome to HateXAI</h1>
+          <p class="lead">This is my research project which I developed in my Masters thesis "Informationelle Selbstbestimmung durch Explainable Artificial Intelligence (XAI) - Entwicklung eines prototypischen Feedbacksystems für die Hate-Speech-Erkennung" at the University of Hildesheim. The source code can be found in my <a href="https://github.com/curious-luke/ma-project.git">Github Repo</a>.</p>
+          <p class="lead">The goal of this project is to explore different methods of the research field Explainable Artificial Intelligence (XAI) and apply them to the context of Hate-Speech-Classification. It serves as a case study example to discover further use cases. This page gives a brief introduction to the prototype. More Details can be found on the About page.</p>
+        </div>
+        <div class="col-lg-4 col-md-5 col-sm-6">
+          <div class="sponsor">
+            <script async src="https://cdn.carbonads.com/carbon.js?serve=CKYIE23N&placement=bootswatchcom" id="_carbonads_js"></script>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- End of Header -->
+
+    <!-- Classification -->
+    <hr class="my-4">
+    <div class="container">
+    <h2>Introduction</h2>
+    <p> </p>
+    <div class="row">
+        <div class="col-lg-4">
+          <div class="card text-white bg-primary mb-6" style="max-width: 20rem;">
+            <div class="card-header">1. Step - Input</div>
+            <div class="card-body">
+              <h4 class="card-title">Enter a text</h4>
+              <p class="card-text">Enter a given text in the Text Input card and choose the text language. The prototype can classify english and german text</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-8">
+          <div class="card bg-light mb-3">
+            <form method="#" name="main_input">
+            <div class="card-header">
+              <div class="row">
+                <div class="col-lg-8">
+                  <div class="text-left">
+                    <h3>Text Input</h3>
+                  </div>
+                </div>
+                <div class="col-lg-4">
+                  <div class="text-right">
+                    <div class="form-group" method="POST">
+                      <select class="form-control" id="text_language">
+                        <option value="True">English</option>
+                        <option value="False">German</option>
+                      </select>
+                    </div>
+                    <small id="fileHelp" class="form-text text-muted">Text language</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <fieldset>
+                <div class="form-group">
+                  <textarea class="form-control" id="exampleTextarea" rows="3" placeholder="Enter here a text for Hate-Speech Classification (This is a dummy field for explanation)." type="text"></textarea>
+                </div>
+              </fieldset>
+                <div class="col-lg-12">
+                    <input class="btn btn-primary btn-lg btn-block" href="{% url 'classification-predict' %}" type="submit" value='Classify'>
+                </div>
+            </div>
+          </form>
+          </div>
+        </div>
+      </div>
+
+
+    <div class="row">
+        <div class="col-lg-4">
+          <div class="card text-white bg-primary mb-6" style="max-width: 20rem;">
+            <div class="card-header">2. Step - Prediction</div>
+            <div class="card-body">
+              <h4 class="card-title">Hate-Speech-Prediction</h4>
+              <p class="card-text">When clicking on classify the prototype returns a Hate-Speech-Prediction and a respective Prediction-Score to the text you entered in the input card.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-8">
+          <div class="card text-white bg-dark mb-3">
+            <div class="card-header">Classification</div>
+            <div class="card-body">
+              <h6 class="card-title">Text Input: </h6>
+              <h5 class="card-title">Mamata speaks Bengali, but you and your party speaks in Hindi in Bengal. We don't need lecture from you on our Bangaliana. Fuck off!</h5>
+              <hr class="my-4">
+              <h6 class="card-title">Prediction: </h6>
+              <h4 class="card-title">Hate Speech</h4>
+              <hr class="my-4">
+              <h6 class="card-title">Prediction-Score: </h6>
+              <h4 class="card-title">78.34 %</h4>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+          <div class="col-lg-4">
+
+            <div class="card text-white bg-primary mb-6" style="max-width: 20rem;">
+              <div class="card-header">3. Step - Cosine Similarity</div>
+              <div class="card-body">
+                <h4 class="card-title">Similar Tweets</h4>
+                <p class="card-text"> Below the text input card and the classification card the prototype ranks cards with similar Text from the its trainig dataset HASOC (2019) with their respective Cosine-Similarity to the input text. The card contains also a Prediction-Score and two small badges which show the given label from the dataset and the predicted label calculated by the neural network.</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="card border-secondary mb-3" style="max-width: 20rem;">
+              <div class="card-header">Text ID</div>
+              <div class="card-body">
+                <p class="card-text">Text of similar tweet from the HASOC training set.</p>
+                <hr class="my-4">
+                <h6 class="card-title">Cosine-Similarity: </h6>
+                <h4 class="card-title"> 84.45 %</h4>
+                <hr class="my-4">
+                <h6 class="card-title">Prediction-Score: </h6>
+                <h4 class="card-title">3.56 %</h4>
+                <span class="badge badge-primary">Predicted Label</span>
+                <span class="badge badge-light">Given Label</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="card border-secondary mb-3" style="max-width: 20rem;">
+              <div class="card-header">hasoc_en1_24</div>
+              <div class="card-body">
+                <p class="card-text">If Kasab was alive today, even he would have claimed that Tukaram Omble forced him to chant Jai Shri Ram, and voila!</p>
+                <hr class="my-4">
+                <h6 class="card-title">Cosine-Similarity: </h6>
+                <h4 class="card-title"> 52.98 %</h4>
+                <hr class="my-4">
+                <h6 class="card-title">Prediction-Score: </h6>
+                <h4 class="card-title">89.05 %</h4>
+                <span class="badge badge-primary">Hate Speech</span>
+                <span class="badge badge-light">Hate Speech</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      <!-- End of Classification -->
+
+      <hr class="my-4">
+
+{% endblock content %}
