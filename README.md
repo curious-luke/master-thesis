@@ -4,5 +4,7 @@ My master thesis proposes a feedback-system for hate-speech-classification, whic
 
 Model training and data preparation was done in Google Colab: https://colab.research.google.com/drive/1o0zfHF2WewV9BucNImBJ8LusXtPLxtL3?usp=sharing
 
+A slim version of the prototype (without the similarity calculation) can be found here: https://sontheimer.pythonanywhere.com
+
 ![screen](https://user-images.githubusercontent.com/34202462/122594993-0d1b4800-d068-11eb-8146-73f84faac31f.png)
 ![screen2](https://user-images.githubusercontent.com/34202462/122595030-1d332780-d068-11eb-8055-2c881456cbc3.png)
